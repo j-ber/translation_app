@@ -1,0 +1,14 @@
+# dependencies
+node_modules/
+
+# environment — never commit real keys
+.env.local
+.env*.local
+
+# Next.js build output
+.next/
+out/
+
+# misc
+.DS_Store
+*.tsbuildinfo
