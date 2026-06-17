@@ -5,32 +5,15 @@ interface Props {
   accent: string;
 }
 
-const WaveBar = ({ delay, h, color }: { delay: string; h: string; color: string }) => (
-  <span
-    style={{
-      display: "block",
-      width: "3px",
-      height: h,
-      background: color,
-      borderRadius: "3px",
-      animation: `wbar 1s ease-in-out ${delay} infinite`,
-    }}
-  />
-);
-
 export default function PhonePreview({ variant, accent }: Props) {
-  const waveBars = [
-    { delay: "0s", h: "60%", color: "#bcb4a2" },
-    { delay: "0.1s", h: "90%", color: accent },
-    { delay: "0.2s", h: "40%", color: "#bcb4a2" },
-    { delay: "0.3s", h: "100%", color: accent },
-    { delay: "0.4s", h: "55%", color: "#bcb4a2" },
-    { delay: "0.5s", h: "80%", color: accent },
-    { delay: "0.6s", h: "45%", color: "#bcb4a2" },
-    { delay: "0.7s", h: "70%", color: "#bcb4a2" },
-  ];
-
   if (variant === "general") {
+    const wavy = {
+      color: accent,
+      textDecoration: "underline",
+      textDecorationStyle: "wavy" as const,
+      textDecorationColor: accent,
+      textUnderlineOffset: "5px",
+    };
     return (
       <div
         style={{
@@ -38,135 +21,139 @@ export default function PhonePreview({ variant, accent }: Props) {
           background: "#f3efe4",
           border: "2.6px solid #2b2b2b",
           borderRadius: "26px 30px 24px 28px / 28px 24px 30px 26px",
-          padding: "18px 18px 20px",
+          padding: "20px 20px 22px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span
-            style={{
-              fontFamily: "'Nunito', sans-serif",
-              fontSize: "11px",
-              fontWeight: 800,
-              letterSpacing: "1.4px",
-              textTransform: "uppercase",
-              color: "#a99f8c",
-            }}
-          >
-            Sneak peek
-          </span>
+        {/* you said it out loud */}
+        <div style={{ display: "flex", alignItems: "center", gap: "9px" }}>
           <span
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: "5px",
-              fontFamily: "'Space Mono', monospace",
-              fontSize: "11px",
-              fontWeight: 700,
-              color: "#4a9b6e",
+              justifyContent: "center",
+              width: "30px",
+              height: "30px",
+              borderRadius: "50%",
+              background: accent,
+              border: "2.4px solid #2b2b2b",
+              flexShrink: 0,
             }}
           >
-            <span
-              style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#4a9b6e" }}
-            />
-            preview only
+            <svg width="13" height="17" viewBox="0 0 22 30" fill="none" stroke="#fbfaf6" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="7" y="2" width="8" height="15" rx="4" />
+              <path d="M3 13 Q3 23 11 23 Q19 23 19 13" />
+              <path d="M11 23 V28 M7 28 H15" />
+            </svg>
           </span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px", marginTop: "12px" }}>
           <span
             style={{
               fontFamily: "'Space Mono', monospace",
               fontSize: "11px",
               fontWeight: 700,
+              letterSpacing: "1px",
+              textTransform: "uppercase",
               color: "#a99f8c",
             }}
           >
-            ⚽ WORLD CUP PHRASE
+            You said it out loud
           </span>
         </div>
-        <p
-          style={{
-            fontFamily: "'Patrick Hand', cursive",
-            fontSize: "30px",
-            lineHeight: 1.22,
-            margin: "8px 0 0",
-            textAlign: "center",
-          }}
-        >
-          <span style={{ color: "#4a9b6e" }}>What a goal! He </span>
-          <span
-            style={{
-              color: accent,
-              textDecoration: "underline",
-              textDecorationStyle: "wavy",
-              textDecorationColor: accent,
-              textUnderlineOffset: "5px",
-            }}
-          >
-            scores!
-          </span>
-        </p>
+
+        {/* speech bubble */}
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "14px",
-            marginTop: "16px",
+            position: "relative",
+            marginTop: "12px",
             background: "#fff",
-            border: "2.4px solid #2b2b2b",
-            borderRadius: "20px",
-            padding: "10px 14px",
+            border: "2.8px solid #2b2b2b",
+            borderRadius: "24px 26px 22px 25px",
+            padding: "16px 18px",
           }}
         >
-          <button
+          <p
             style={{
-              flexShrink: 0,
-              width: "42px",
-              height: "42px",
-              borderRadius: "50%",
-              background: accent,
-              border: "2.6px solid #2b2b2b",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer",
-              boxShadow: "3px 3px 0 rgba(43,43,43,0.16)",
+              fontFamily: "'Patrick Hand', cursive",
+              fontSize: "26px",
+              lineHeight: 1.3,
+              margin: 0,
             }}
           >
-            <svg width="15" height="17" viewBox="0 0 15 17" fill="#fbfaf6">
-              <path d="M2 2 L13 8.5 L2 15 Z" />
-            </svg>
-          </button>
-          <div
-            style={{
-              flex: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: "3px",
-              height: "30px",
-            }}
-          >
-            {waveBars.map((b, i) => (
-              <WaveBar key={i} {...b} />
-            ))}
-          </div>
+            The <span style={wavy}>chef</span> grew up on a small <span style={wavy}>island</span>.
+          </p>
           <span
-            style={{ fontFamily: "'Patrick Hand', cursive", fontSize: "16px", color: "#6f6857" }}
-          >
-            tap to hear
-          </span>
+            style={{
+              position: "absolute",
+              left: "30px",
+              bottom: "-13px",
+              width: "22px",
+              height: "22px",
+              background: "#fff",
+              borderRight: "2.8px solid #2b2b2b",
+              borderBottom: "2.8px solid #2b2b2b",
+              transform: "rotate(45deg)",
+            }}
+          />
         </div>
+
+        {/* Lalo feedback */}
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "11px", marginTop: "22px" }}>
+          <svg width="30" height="33" viewBox="0 0 72 78" fill="none" strokeLinejoin="round" style={{ flexShrink: 0, marginTop: "2px" }}>
+            <path d="M12 30 Q12 10 36 10 Q60 10 60 30 L60 50 Q60 68 36 68 Q12 68 12 50 Z" fill="#ffd99b" stroke="#2b2b2b" strokeWidth="2.8" />
+            <circle cx="27" cy="34" r="3.2" fill="#2b2b2b" />
+            <circle cx="45" cy="34" r="3.2" fill="#2b2b2b" />
+            <path d="M28 47 Q36 53 44 47" stroke="#2b2b2b" strokeWidth="2.8" strokeLinecap="round" />
+          </svg>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontFamily: "'Patrick Hand', cursive", fontSize: "19px", margin: "0 0 10px" }}>
+              So close! Two little tweaks:
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "9px" }}>
+              {[
+                { word: "chef", fix: "“shef”", note: "the ch is soft", radius: "16px 18px 15px 17px" },
+                { word: "island", fix: "“eye-land”", note: "the s is silent", radius: "18px 15px 17px 16px" },
+              ].map((row) => (
+                <div
+                  key={row.word}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    background: "#fff",
+                    border: "2.4px solid #2b2b2b",
+                    borderRadius: row.radius,
+                    padding: "9px 13px",
+                  }}
+                >
+                  <span style={{ fontFamily: "'Patrick Hand', cursive", fontSize: "18px", color: "#9a9384", textDecoration: "line-through" }}>
+                    {row.word}
+                  </span>
+                  <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="#2b2b2b" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 6 H15 M11 2 L15 6 L11 10" />
+                  </svg>
+                  <span style={{ fontFamily: "'Patrick Hand', cursive", fontSize: "21px", color: "#4a9b6e", whiteSpace: "nowrap" }}>
+                    {row.fix}
+                  </span>
+                  <span style={{ fontFamily: "'Nunito', sans-serif", fontSize: "12px", fontWeight: 700, color: "#9a9384", marginLeft: "auto" }}>
+                    {row.note}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         <p
           style={{
             fontFamily: "'Nunito', sans-serif",
             fontSize: "13px",
             fontWeight: 600,
             color: "#6f6857",
-            lineHeight: 1.4,
-            margin: "12px 0 0",
+            lineHeight: 1.45,
+            margin: "16px 0 0",
+            textAlign: "center",
           }}
         >
-          Example of how the app will work — Lalo shows which words are clear and which to polish.
-          No scores, no shame.
+          Warm, clear feedback in seconds — only the sounds you&apos;d actually trip on.
         </p>
       </div>
     );
